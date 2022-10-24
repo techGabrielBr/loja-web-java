@@ -61,7 +61,7 @@ public class CategoriaServlet extends HttpServlet {
 			if(direcionador[0].equals("forward")) {
 				request.getRequestDispatcher(direcionador[1]).forward(request, response);
 			}else {
-				response.sendRedirect(url);
+				response.sendRedirect(direcionador[1]);
 			}
 		}else {
 			RequestDispatcher rd = request.getRequestDispatcher("./WEB-INF/error/error.jsp");
