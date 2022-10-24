@@ -38,17 +38,32 @@ public class CategoriaServlet extends HttpServlet {
 		final String method = request.getMethod();
 		
 		Action classe = null;
-
+		String str = null;
 		try {
 			classe = (Action) Class.forName(defaultPath + mode).getDeclaredConstructor().newInstance();
 					
 			if(method.equals("POST")) {
-				classe.doPost(request, response);
+				str = classe.doPost(request, response);
 			} else if(method.equals("GET")) {
-				classe.doGet(request, response);
+				str = classe.doGet(request, response);
 			}
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException | ClassNotFoundException e) {
+			RequestDispatcher rd = request.getRequestDispatcher("./WEB-INF/error/error.jsp");
+			rd.forward(request, response);
+		}
+		handlerReturn(str, request, response);
+	}
+	
+	private void handlerReturn(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(url != null) {
+			String[] direcionador = url.split(":");
+			if(direcionador[0].equals("forward")) {
+				request.getRequestDispatcher(direcionador[1]).forward(request, response);
+			}else {
+				response.sendRedirect(url);
+			}
+		}else {
 			RequestDispatcher rd = request.getRequestDispatcher("./WEB-INF/error/error.jsp");
 			rd.forward(request, response);
 		}

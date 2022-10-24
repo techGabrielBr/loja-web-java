@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.fiap.dao.CategoriaDAO;
 import br.com.fiap.model.Categoria;
 
-public class EditaCategoria extends Action{
+public class EditaCategoria implements Action{
 	private CategoriaDAO categoriaDAO;
 
     /**
@@ -20,7 +20,7 @@ public class EditaCategoria extends Action{
     	this.categoriaDAO = new CategoriaDAO();
     }
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public String doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Categoria categoria = new Categoria();
 		
@@ -28,6 +28,6 @@ public class EditaCategoria extends Action{
 		categoria.setNome(request.getParameter("nome"));
 		
 		this.categoriaDAO.atualizar(categoria);
-		response.sendRedirect("./categoria?mode=ListaCategoria");
+		return "redirect:./categoria?mode=ListaCategoria";
 	}
 }

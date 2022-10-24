@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.fiap.dao.CategoriaDAO;
 
-public class CriaCategoria extends Action{
+public class CriaCategoria implements Action{
 	private CategoriaDAO categoriaDAO;
 
     /**
@@ -19,11 +19,11 @@ public class CriaCategoria extends Action{
     	this.categoriaDAO = new CategoriaDAO();
     }
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public String doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String nome = request.getParameter("nome");
 		
 		this.categoriaDAO.salvar(nome);
-		response.sendRedirect("./categoria?mode=ListaCategoria");
+		return "redirect:./categoria?mode=ListaCategoria";
 	}
 }

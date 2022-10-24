@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.fiap.dao.CategoriaDAO;
 
-public class RemoveCategoria extends Action{
+public class RemoveCategoria implements Action{
 	private CategoriaDAO categoriaDAO;
 
     /**
@@ -19,7 +19,7 @@ public class RemoveCategoria extends Action{
     	this.categoriaDAO = new CategoriaDAO();
     }
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public String doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
 			this.categoriaDAO.excluir(Integer.parseInt(request.getParameter("id")));
@@ -28,6 +28,6 @@ public class RemoveCategoria extends Action{
 			System.out.println(e);
 		}
 		
-		response.sendRedirect("./categoria?mode=ListaCategoria");
+		return "redirect:./categoria?mode=ListaCategoria";
 	}
 }

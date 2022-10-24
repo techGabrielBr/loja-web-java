@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.fiap.dao.ProdutoDAO;
 
-public class RemoveProduto extends Action{
+public class RemoveProduto implements Action{
 	private ProdutoDAO produtoDAO;
 
     /**
@@ -19,7 +19,7 @@ public class RemoveProduto extends Action{
     	this.produtoDAO = new ProdutoDAO();
     }
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public String doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
 			this.produtoDAO.excluir(Integer.parseInt(request.getParameter("id")));
@@ -27,6 +27,6 @@ public class RemoveProduto extends Action{
 			// TODO: handle exception
 			System.out.println(e);
 		}
-		response.sendRedirect("./produto?mode=ListaProduto");
+		return "redirect:./produto?mode=ListaProduto";
 	}
 }

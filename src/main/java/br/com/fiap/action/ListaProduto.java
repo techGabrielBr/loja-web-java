@@ -3,7 +3,6 @@ package br.com.fiap.action;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.fiap.dao.ProdutoDAO;
 import br.com.fiap.model.Produto;
 
-public class ListaProduto extends Action{
+public class ListaProduto implements Action{
 	private ProdutoDAO produtoDAO;
 
     /**
@@ -22,7 +21,7 @@ public class ListaProduto extends Action{
     	this.produtoDAO = new ProdutoDAO();
     }
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public String doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		List<Produto> list = null;
 		
@@ -34,7 +33,6 @@ public class ListaProduto extends Action{
 		}
 		
 		request.setAttribute("produtos", list);
-		RequestDispatcher rd = request.getRequestDispatcher("./WEB-INF/pages/listaProdutos.jsp");
-		rd.forward(request, response);
+		return "forward:./WEB-INF/pages/listaProdutos.jsp";
 	}
 }
